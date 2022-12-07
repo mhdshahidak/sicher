@@ -8,6 +8,7 @@ urlpatterns = [
     path('invoice',views.invoice, name='invoice'),
     path('estimates',views.estimate_list, name='estimates'),
     path('clients',views.clients, name='clients'),
+    path('add-clients',views.addClients, name='addClients'),
     path('items',views.items, name='items'),
     path('settings',views.settings, name='settings'),
 ]
