@@ -1,0 +1,33 @@
+{% load static %}
+<ul class="nav nav-tabs user-menu">
+
+    <li class="nav-item ">
+        <a class="nav-link" href="{% url 'invoice:home' %}" role="button">
+            <span>Invoices</label>
+        </a>
+    </li>
+
+
+    <li class="nav-item ">
+        <a href="{% url 'invoice:estimates' %}" class=" nav-link">
+            Estimates
+        </a>
+    </li>
+
+
+    <li class="nav-item ">
+        <a href="{% url 'invoice:clients' %}" class="nav-link">Clients
+        </a>
+    </li>
+
+    <li class="nav-item dropdown has-arrow main-drop">
+        <a href="{% url 'invoice:items' %}" class="nav-link">Items
+        </a>
+    </li>
+
+    <li class="nav-item dropdown has-arrow main-drop">
+        <a href="{% url 'invoice:settings' %}" class="nav-link">Settings
+        </a>
+    </li>
+
+</ul>
