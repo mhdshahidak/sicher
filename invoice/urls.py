@@ -11,4 +11,8 @@ urlpatterns = [
     path('add-clients',views.addClients, name='addClients'),
     path('items',views.items, name='items'),
     path('settings',views.settings, name='settings'),
+
+    #ajax
+    path('customersearch/',views.customersearch, name='customersearch'),
+    path('productsearch/',views.productsearch, name='productsearch'),
 ]

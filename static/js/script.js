@@ -422,28 +422,36 @@ Version      : 1.0
     });
 
     $(document).on("click",".add-btn",function () {
+		var rowCount = $(".add-table-items tr ").length;
 		var experiencecontent = '<tr class="add-row">' +
 			'<td>' +
-				'<input type="text" class="form-control">' +
+				rowCount +
 			'</td>' +
 			'<td>' +
-				'<input type="text" class="form-control">' +
+				'<input type="text" class="form-control" onchange="ProductSearch('+ rowCount +')" id="itemname'+ rowCount +'" list="items">' +
+				'<datalist id="items">'+
+				'{% for item in items %}' +
+				'<option value="{{item.description}}">{{item.description}}</option>' +
+				'{% endfor %}' +
+				'</datalist>' +
 			'</td>' +
 			'<td>' +
-				'<input type="text" class="form-control">' +
+				'<input type="number" id="qty'+ rowCount +'" onchange="qtyChange('+ rowCount +')" class="form-control">' +
 			'</td>' +
 			'<td>' +
-				'<input type="text" class="form-control">' +
+				'<input type="number" readonly id="itemprice'+ rowCount +'" class="form-control">' +
 			'</td>' +
 			'<td>' +
-				'<input type="text" class="form-control">' +
+				'<input type="number" id="itemtotal'+ rowCount +'" class="form-control">' +
 			'</td>' +
 			'<td>' +
-				'<input type="text" class="form-control">' +
+			'<label class="custom_check">' +
+			'<input type="checkbox" id="check' + rowCount + '" name="taxable">' +
+			'<span class="checkmark"></span>' +
+			'</label>' +
 			'</td>' +
 			'<td class="add-remove text-end">' +
 				'<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
-				'<a href="#" class="copy-btn me-2"><i class="fe fe-copy"></i></a>' +
 				'<a href="javascript:void(0);" class="remove-btn"><i class="fe fe-trash-2"></i></a>' +
 			'</td>' +
 		'</tr>';

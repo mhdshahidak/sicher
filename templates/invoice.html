@@ -42,126 +42,30 @@
                                 <div class="row">
                                     <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                                         <div class="form-group">
-                                            <label>Customer Name</label>
-                                            <div class="multipleSelection">
-                                                <div class="selectBox">
-                                                    <p class="mb-0">Select Customer</p>
-                                                    <span class="down-icon"><i
-                                                            data-feather="chevron-down"></i></span>
-                                                </div>
-                                                <div id="checkBoxes-one">
-                                                    <p class="checkbox-title">Customer Search</p>
-                                                    <div class="form-custom">
-                                                        <input type="text" class="form-control bg-grey"
-                                                            placeholder="Enter Customer Name">
-                                                    </div>
-                                                    <div class="selectBox-cont">
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span> Brian Johnson
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span> Russell Copeland
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span> Greg Lynch
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span> John Blair
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span> Barbara Moore
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span> Hendry Evan
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span> Richard Miles
-                                                        </label>
-                                                    </div>
-                                                    <button type="submit"
-                                                        class="btn w-100 btn-primary">Apply</button>
-                                                    <button type="reset"
-                                                        class="btn w-100 btn-grey">Reset</button>
-                                                </div>
-                                            </div>
+                                            <label>Customer Number</label>
+                                            <input type="text" class="form-control" onchange="chengingName()" id="customerphone" name="checkname" list="customer">
+                                            <datalist id="customer">
+                                                {% for cust in customers %}
+                                                <option value="{{cust.phone}}">{{cust.phone}}</option>
+                                                {% endfor %}
+                                            </datalist> 
                                         </div>
                                         <div class="form-group">
-                                            <label>Po Number</label>
-                                            <input class="form-control" type="text"
-                                                placeholder="Enter Reference Number">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" readonly id="customername"> 
                                         </div>
                                     </div>
-                                    <div class="col-xl-5 col-md-6 col-sm-12 col-12">
-                                        <h4 class="invoice-details-title">Invoice details</h4>
-                                        <div class="invoice-details-box">
-                                            <div class="invoice-inner-head">
-                                                <span>Invoice No. <a
-                                                        href="view-invoice.html">IN093439#@09</a></span>
-                                            </div>
-                                            <div class="invoice-inner-footer">
-                                                <div class="row align-items-center">
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <div class="invoice-inner-date">
-                                                            <span>
-                                                                Date <input class="form-control datetimepicker"
-                                                                    type="text" placeholder="15/02/2022">
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <div class="invoice-inner-date invoice-inner-datepic">
-                                                            <span>
-                                                                Due Date <input
-                                                                    class="form-control datetimepicker"
-                                                                    type="text" placeholder="Select">
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label>Invoice Number</label>
+                                            <input type="text" class="form-control" id="" readonly name="invoicenumber" >
+                                            
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-md-12 col-sm-12 col-12">
-                                        <div class="inovices-month-info">
-                                            <div class="form-group mb-0">
-                                                <label class="custom_check w-100">
-                                                    <input type="checkbox" id="enableTax" name="invoice">
-                                                    <span class="checkmark"></span> Enable tax
-                                                </label>
-                                                <label class="custom_check w-100">
-                                                    <input type="checkbox" id="chkYes" name="invoice">
-                                                    <span class="checkmark"></span> Recurring Invoice
-                                                </label>
-                                            </div>
-                                            <div id="show-invoices">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <select class="select">
-                                                                <option>By month</option>
-                                                                <option>March</option>
-                                                                <option>April</option>
-                                                                <option>May</option>
-                                                                <option>June</option>
-                                                                <option>July</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input class="form-control" type="text"
-                                                                placeholder="Enter Months">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label>Date</label>
+                                            <input type="date" class="form-control" name="date" >
                                         </div>
                                     </div>
                                 </div>
@@ -170,12 +74,11 @@
                                 <div class="row">
                                     <div class="col-xl-4 col-lg-6 col-md-6">
                                         <div class="invoice-info">
-                                            <strong class="customer-text">Invoice From <a class="small"
-                                                    href="edit-invoice.html">Edit Address</a></strong>
+                                            <strong class="customer-text">Invoice From </strong>
                                             <p class="invoice-details invoice-details-two">
-                                                Darren Elder <br>
-                                                806 Twin Willow Lane, Old Forge,<br>
-                                                Newyork, USA <br>
+                                                {{admin_details.name}}<br>
+                                                {{admin_details.address}}, {{admin_details.district}}, {{admin_details.state }}<br>
+                                                pin: {{admin_details.pincode}}<br>
                                             </p>
                                         </div>
                                     </div>
@@ -183,9 +86,10 @@
                                         <div class="invoice-info">
                                             <strong class="customer-text">Invoice To</strong>
                                             <p class="invoice-details invoice-details-two">
-                                                Walter Roberson <br>
-                                                299 Star Trek Drive, Panama City, <br>
-                                                Florida, 32405, USA <br>
+                                                <span id="customernname"></span> <br>
+                                                <span id="customeraddress"></span>   <span id="customercity"></span>  <br>
+                                                <span id="customercountry"></span>    <span id="customerzipcode"></span> <br>
+                                                <span id="customeremail"></span>
                                             </p>
                                         </div>
                                     </div>
@@ -196,42 +100,45 @@
                                 <div class="table-responsive">
                                     <table class="table table-center add-table-items">
                                         <thead>
-                                            <tr>
+                                            <tr><th>sl no</th>
                                                 <th>Items</th>
-                                                <th>Category</th>
                                                 <th>Quantity</th>
                                                 <th>Price</th>
                                                 <th>Amount</th>
-                                                <th>Discount</th>
+                                                <th>Tax</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr class="add-row">
+                                                <td>1</td>
                                                 <td>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" onchange="ProductSearch(1)" id="itemname1" list="items">
+                                                    <datalist id="items">
+                                                        {% for item in items %}
+                                                        <option value="{{item.description}}">{{item.description}}</option>
+                                                        {% endfor %}
+                                                    </datalist> 
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control">
+                                                    <input type="number" id="qty1" onchange="qtyChange(1)" class="form-control">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control">
+                                                    <input type="number" readonly id="itemprice1" class="form-control">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control">
+                                                    <input type="number" id="itemtotal1" class="form-control">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control">
+                                                    <label class="custom_check">
+                                                        <input type="checkbox" id="check1" name="taxable">
+                                                        <span class="checkmark"></span>
+                                                    </label>
                                                 </td>
                                                 <td class="add-remove text-end">
                                                     <a href="javascript:void(0);" class="add-btn me-2"><i
                                                             class="fas fa-plus-circle"></i></a>
-                                                    <a href="#" class="copy-btn me-2"><i
-                                                            class="fe fe-copy"></i></a><a
-                                                        href="javascript:void(0);" class="remove-btn"><i
+                                                    <a href="javascript:void(0);" class="remove-btn"><i
                                                             class="fe fe-trash-2"></i></a>
                                                 </td>
                                             </tr>
@@ -641,5 +548,67 @@
         </div>
     </div>
 </div>
+
+<script>
+    function chengingName() {
+        $.ajax({
+                url : "/customersearch/",
+                type : "POST",
+                data : {
+                    'customerphone': $('#customerphone').val()
+                },
+                success : function(response){
+                    $('#customername').val(response.name)
+                    $('#customernname').html(response.name)
+                    $('#customeraddress').html(response.address,)
+                    $('#customercity').html(response.city,)
+                    $('#customercountry').html(response.customercountry )
+                    $('#customerzipcode').html(response.zipcode)
+                    $('#customeremail').html(response.email)
+                }
+            })
+    }
+
+    function ProductSearch(id){
+        $.ajax({
+            url : "/productsearch/",
+            type : "POST",
+            data : {
+                'product': $("#itemname" + id).val()
+            },
+            success : function(response){
+                // alert(response.taxable)
+                if (response.productexists == "itemexits") {
+                    $('#itemprice' + id).val(response.rate)
+                    if (response.taxable == true ){
+                        $('#check' + id).attr('checked', true)
+                    } 
+                    else {
+                        pass
+                    }
+                }
+                else {
+                    alert("Product Does not Exits")
+                }
+                
+            }
+        })
+
+    }
+
+    function qtyChange(id) {
+        var total = 0
+        var qty = $("#qty"+id).val()
+        var itemprice = $("#itemprice"+id).val()
+        var check = $("#check"+id).val()
+        total = qty*itemprice
+        $("#itemtotal" +id ).val(total)
+
+    }
+
+
+
+
+</script>
 
 {% endblock %}

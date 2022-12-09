@@ -11,6 +11,7 @@ class FromDetails(models.Model):
     address = models.CharField(max_length=100,null=True)
     district = models.CharField(max_length=50,null=True)
     state = models.CharField(max_length=25,null=True)
+    pincode = models.CharField(max_length=15,null=True)
 
     class Meta:
         verbose_name_plural = ("Main Admin")

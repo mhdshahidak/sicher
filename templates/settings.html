@@ -27,36 +27,6 @@
                                 <i class="far fa-user"></i> <span>Profile Settings</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="preferences.html" class="nav-link">
-                                <i class="fas fa-cog"></i> <span>Preferences</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="tax-types.html" class="nav-link">
-                                <i class="far fa-check-square"></i> <span>Tax Types</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="expense-category.html" class="nav-link">
-                                <i class="far fa-list-alt"></i> <span>Expense Category</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="notifications.html" class="nav-link">
-                                <i class="far fa-bell"></i> <span>Notifications</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="change-password.html" class="nav-link">
-                                <i class="fas fa-unlock-alt"></i> <span>Change Password</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="delete-account.html" class="nav-link">
-                                <i class="fas fa-ban"></i> <span>Delete Account</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
 
@@ -69,7 +39,7 @@
                     <div class="card-body">
 
                         <form>
-                            <div class="row form-group">
+                            <!-- <div class="row form-group">
                                 <label for="name" class="col-sm-3 col-form-label input-label">Name</label>
                                 <div class="col-sm-9">
                                     <div class="d-flex align-items-center">
@@ -85,27 +55,26 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row form-group">
                                 <label for="name" class="col-sm-3 col-form-label input-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name"
-                                        value="Charles Hafner">
+                                    <input type="text" class="form-control" 
+                                        value="{{admin_details.name}}">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <label for="email" class="col-sm-3 col-form-label input-label">Email</label>
                                 <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="email" placeholder="Email"
-                                        value="charleshafner@example.com">
+                                    <input type="email" class="form-control" 
+                                        value="{{admin_details.email}}">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <label for="phone" class="col-sm-3 col-form-label input-label">Phone <span
                                         class="text-muted">(Optional)</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="phone"
-                                        placeholder="+x(xxx)xxx-xx-xx" value="+1 (304) 499-13-66">
+                                    <input type="text" class="form-control" value="{{admin_details.phone}}">
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -113,39 +82,21 @@
                                     class="col-sm-3 col-form-label input-label">Location</label>
                                 <div class="col-sm-9">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" id="location"
-                                            placeholder="Country" value="United States">
+                                        <input type="text" class="form-control" value="{{admin_details.address}}">
                                     </div>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" placeholder="City"
-                                            value="Charleston">
+                                        <input type="text" class="form-control" 
+                                            value="{{admin_details.district}}">
                                     </div>
-                                    <input type="text" class="form-control" placeholder="State"
-                                        value="West Virginia">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label for="addressline1" class="col-sm-3 col-form-label input-label">Address
-                                    line 1</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addressline1"
-                                        placeholder="Your address" value="2681  Columbia Mine Road">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label for="addressline2" class="col-sm-3 col-form-label input-label">Address
-                                    line 2 <span class="text-muted">(Optional)</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addressline2"
-                                        placeholder="Your address">
+                                    <input type="text" class="form-control"
+                                        value="{{admin_details.state}}">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <label for="zipcode" class="col-sm-3 col-form-label input-label">Zip
                                     code</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="zipcode"
-                                        placeholder="Your zip code" value="25301">
+                                    <input type="text" class="form-control" value="{{admin_details.state}}">
                                 </div>
                             </div>
                             <div class="text-end">

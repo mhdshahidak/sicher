@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
+from django.http import JsonResponse
 
-from invoice.models import Client, Items
+from invoice.models import Client, Items, FromDetails
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 
@@ -8,7 +11,57 @@ def home(request):
     return render(request,'invoice-list.html')
 
 def invoice(request):
-    return render(request,'invoice.html')
+    customers = Client.objects.all()
+    admin_details = FromDetails.objects.all().last()
+    items = Items.objects.all()
+    context = {
+        "customers":customers,
+        "admin_details":admin_details,
+        "items":items,
+    }
+    return render(request,'invoice.html',context)
+
+
+#invoice ajax
+@csrf_exempt
+def customersearch(request):
+    phone = request.POST['customerphone']
+    if Client.objects.filter(phone=phone).exists():
+        client = Client.objects.get(phone=phone)
+    else :
+        client = Client(phone=phone)
+        client.save()
+    data = {
+        "name":client.name,
+        "address":client.address,
+        "city":client.city,
+        "country":client.country,
+        "zipcode":client.zipcode,
+        "email":client.email,
+    }
+    return JsonResponse(data)
+
+
+@csrf_exempt
+def productsearch(request):
+    pname = request.POST['product']
+    if Items.objects.filter(description=pname).exists():
+        item = Items.objects.get(description=pname)
+        data = {
+            "productexists":"itemexits",
+            "itemname":item.description,
+            "rate":item.rate,
+            "taxable":item.is_taxable,
+        }
+        return JsonResponse(data)
+    else :
+        data = {
+            "productexists":"itemdoesnotexits",
+        }
+        return JsonResponse(data)
+
+
+
 
 def estimate_list(request):
     return render(request,'estimate-list.html')
@@ -62,5 +115,9 @@ def items(request):
     return render(request,'items.html',context)
 
 def settings(request):
-    return render(request,'settings.html')
+    admin_details = FromDetails.objects.all().last()
+    context = {
+        "admin_details":admin_details,
+    }
+    return render(request,'settings.html',context)
 
