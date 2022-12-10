@@ -1,7 +1,8 @@
+import json
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 
-from invoice.models import Client, Items, FromDetails
+from invoice.models import Client, Invoice, Items, FromDetails
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -11,10 +12,17 @@ def home(request):
     return render(request,'invoice-list.html')
 
 def invoice(request):
+    if Invoice.objects.exists():
+        inv = Invoice.objects.last().id
+        inv_id = 'INVSCR'+str(100000+inv)
+    else:
+        inv=0
+        inv_id = 'INVSCR'+str(100000+inv)
     customers = Client.objects.all()
     admin_details = FromDetails.objects.all().last()
     items = Items.objects.all()
     context = {
+        "invoice_id":inv_id,
         "customers":customers,
         "admin_details":admin_details,
         "items":items,
@@ -59,6 +67,17 @@ def productsearch(request):
             "productexists":"itemdoesnotexits",
         }
         return JsonResponse(data)
+
+@csrf_exempt
+def saveinvoice(request):
+    print(request.POST)
+    data = json.loads(request.POST['data'])
+    print(data)
+    # data = request.POST['']
+    data = {
+        "fdsd":"sdas"
+    }
+    return JsonResponse(data)
 
 
 

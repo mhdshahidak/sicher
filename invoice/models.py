@@ -51,3 +51,31 @@ class Items(models.Model):
         return str(self.description)
 
 
+
+class Invoice(models.Model):
+    invoice_number = models.CharField(max_length=50,null=True)
+    client = models.ForeignKey(Client,on_delete=models.CASCADE,null=True)
+    date = models.DateField(null=True)
+    item_total = models.FloatField(default=0,null=True)
+    tax_amount = models.FloatField(default=0,null=True)
+    grand_total = models.FloatField(default=0,null=True)
+    note = models.CharField(max_length=2000,null=True)
+
+    def __str__(self):
+        return str(self.invoice_number)
+
+
+class InvoiceItems(models.Model):
+    invoice = models.ForeignKey(Invoice,on_delete=models.CASCADE,null=True)
+    item = models.ForeignKey(Items,on_delete=models.CASCADE,null=True)
+    quantity = models.IntegerField(default=1)
+    total = models.FloatField(default=0)
+    tax = models.FloatField(default=0)
+    tax_applied = models.BooleanField(default=True)
+    itemtotal = models.FloatField(default=0)
+
+    def __str__(self):
+        return str(self.invoice)
+
+
+

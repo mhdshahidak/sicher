@@ -15,4 +15,5 @@ urlpatterns = [
     #ajax
     path('customersearch/',views.customersearch, name='customersearch'),
     path('productsearch/',views.productsearch, name='productsearch'),
+    path('saveinvoice/',views.saveinvoice, name="saveinvoice"),
 ]

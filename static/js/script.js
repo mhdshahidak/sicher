@@ -442,9 +442,13 @@ Version      : 1.0
 				'<input type="number" readonly id="itemprice'+ rowCount +'" class="form-control">' +
 			'</td>' +
 			'<td>' +
-				'<input type="number" id="itemtotal'+ rowCount +'" class="form-control">' +
+				'<input type="number" readonly id="itemtotal'+ rowCount +'" class="form-control">' +
 			'</td>' +
 			'<td>' +
+				'<input type="number" readonly id="itemtaxtotal'+ rowCount +'" class="form-control">' +
+			'</td>' +
+			'<td>' +
+			'<input type="text" id="checkvalue' + rowCount + '" hidden>' +
 			'<label class="custom_check">' +
 			'<input type="checkbox" id="check' + rowCount + '" name="taxable">' +
 			'<span class="checkmark"></span>' +

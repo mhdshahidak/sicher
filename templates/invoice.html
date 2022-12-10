@@ -37,232 +37,189 @@
             <div class="col-md-12">
                 <div class="card invoices-add-card">
                     <div class="card-body">
-                        <form action="#" class="invoices-form">
-                            <div class="invoices-main-form">
-                                <div class="row">
-                                    <div class="col-xl-4 col-md-6 col-sm-12 col-12">
-                                        <div class="form-group">
-                                            <label>Customer Number</label>
-                                            <input type="text" class="form-control" onchange="chengingName()" id="customerphone" name="checkname" list="customer">
-                                            <datalist id="customer">
-                                                {% for cust in customers %}
-                                                <option value="{{cust.phone}}">{{cust.phone}}</option>
-                                                {% endfor %}
-                                            </datalist> 
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" readonly id="customername"> 
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-6 col-sm-12 col-12">
-                                        <div class="form-group">
-                                            <label>Invoice Number</label>
-                                            <input type="text" class="form-control" id="" readonly name="invoicenumber" >
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-6 col-sm-12 col-12">
-                                        <div class="form-group">
-                                            <label>Date</label>
-                                            <input type="date" class="form-control" name="date" >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="invoice-item">
-                                <div class="row">
-                                    <div class="col-xl-4 col-lg-6 col-md-6">
-                                        <div class="invoice-info">
-                                            <strong class="customer-text">Invoice From </strong>
-                                            <p class="invoice-details invoice-details-two">
-                                                {{admin_details.name}}<br>
-                                                {{admin_details.address}}, {{admin_details.district}}, {{admin_details.state }}<br>
-                                                pin: {{admin_details.pincode}}<br>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-6 col-md-6">
-                                        <div class="invoice-info">
-                                            <strong class="customer-text">Invoice To</strong>
-                                            <p class="invoice-details invoice-details-two">
-                                                <span id="customernname"></span> <br>
-                                                <span id="customeraddress"></span>   <span id="customercity"></span>  <br>
-                                                <span id="customercountry"></span>    <span id="customerzipcode"></span> <br>
-                                                <span id="customeremail"></span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="invoice-add-table">
-                                <h4>Item Details</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-center add-table-items">
-                                        <thead>
-                                            <tr><th>sl no</th>
-                                                <th>Items</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Amount</th>
-                                                <th>Tax</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="add-row">
-                                                <td>1</td>
-                                                <td>
-                                                    <input type="text" class="form-control" onchange="ProductSearch(1)" id="itemname1" list="items">
-                                                    <datalist id="items">
-                                                        {% for item in items %}
-                                                        <option value="{{item.description}}">{{item.description}}</option>
-                                                        {% endfor %}
-                                                    </datalist> 
-                                                </td>
-                                                <td>
-                                                    <input type="number" id="qty1" onchange="qtyChange(1)" class="form-control">
-                                                </td>
-                                                <td>
-                                                    <input type="number" readonly id="itemprice1" class="form-control">
-                                                </td>
-                                                <td>
-                                                    <input type="number" id="itemtotal1" class="form-control">
-                                                </td>
-                                                <td>
-                                                    <label class="custom_check">
-                                                        <input type="checkbox" id="check1" name="taxable">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </td>
-                                                <td class="add-remove text-end">
-                                                    <a href="javascript:void(0);" class="add-btn me-2"><i
-                                                            class="fas fa-plus-circle"></i></a>
-                                                    <a href="javascript:void(0);" class="remove-btn"><i
-                                                            class="fe fe-trash-2"></i></a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="invoices-main-form">
                             <div class="row">
-                                <div class="col-lg-7 col-md-6">
-                                    <div class="invoice-fields">
-                                        <h4 class="field-title">More Fields</h4>
-                                        <div class="field-box">
-                                            <p>Payment Details</p>
-                                            <a class="btn btn-primary" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#bank_details"><i
-                                                    class="fas fa-plus-circle me-2"></i>Add Bank Details</a>
-                                        </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group">
+                                        <label>Customer Number</label>
+                                        <input type="text" class="form-control" onchange="chengingName()" id="customerphone" name="checkname" list="customer">
+                                        <datalist id="customer">
+                                            {% for cust in customers %}
+                                            <option value="{{cust.phone}}">{{cust.phone}}</option>
+                                            {% endfor %}
+                                        </datalist> 
                                     </div>
-                                    <div class="invoice-faq">
-                                        <div class="panel-group" id="accordion" role="tablist"
-                                            aria-multiselectable="true">
-                                            <div class="faq-tab">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="headingTwo">
-                                                        <p class="panel-title">
-                                                            <a class="collapsed" data-bs-toggle="collapse"
-                                                                data-bs-parent="#accordion" href="#collapseTwo"
-                                                                aria-expanded="false"
-                                                                aria-controls="collapseTwo">
-                                                                <i class="fas fa-plus-circle me-1"></i> Add
-                                                                Terms & Conditions
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                    <div id="collapseTwo" class="panel-collapse collapse"
-                                                        role="tabpanel" aria-labelledby="headingTwo"
-                                                        data-bs-parent="#accordion">
-                                                        <div class="panel-body">
-                                                            <textarea class="form-control"></textarea>
-                                                        </div>
-                                                    </div>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" readonly id="customername"> 
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group">
+                                        <label>Invoice Number</label>
+                                        <input type="text" class="form-control" id="invoicenumber" value="{{invoice_id}}" readonly name="invoicenumber" >
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <input type="date" class="form-control" id="invoicedate" name="date" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invoice-item">
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-6 col-md-6">
+                                    <div class="invoice-info">
+                                        <strong class="customer-text">Invoice From </strong>
+                                        <p class="invoice-details invoice-details-two">
+                                            {{admin_details.name}}<br>
+                                            {{admin_details.address}}, {{admin_details.district}}, {{admin_details.state }}<br>
+                                            pin: {{admin_details.pincode}}<br>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-6">
+                                    <div class="invoice-info">
+                                        <strong class="customer-text">Invoice To</strong>
+                                        <p class="invoice-details invoice-details-two">
+                                            <span id="customernname"></span> <br>
+                                            <span id="customeraddress"></span>   <span id="customercity"></span>  <br>
+                                            <span id="customercountry"></span>    <span id="customerzipcode"></span> <br>
+                                            <span id="customeremail"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invoice-add-table">
+                            <h4>Item Details</h4>
+                            <div class="table-responsive">
+                                <table class="table table-center add-table-items">
+                                    <thead>
+                                        <tr><th>sl no</th>
+                                            <th>Items</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Amount</th>
+                                            <th>Item Total</th>
+                                            <th>Tax</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="add-row">
+                                            <td>1</td>
+                                            <td>
+                                                <input type="text" class="form-control" onchange="ProductSearch(1)" id="itemname1" list="items">
+                                                <datalist id="items">
+                                                    {% for item in items %}
+                                                    <option value="{{item.description}}">{{item.description}}</option>
+                                                    {% endfor %}
+                                                </datalist> 
+                                            </td>
+                                            <td>
+                                                <input type="number" id="qty1" onchange="qtyChange(1)" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="number" readonly id="itemprice1" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="number" readonly    id="itemtotal1" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="number" readonly id="itemtaxtotal1" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" id="checkvalue1" hidden>
+                                                <label class="custom_check">
+                                                    <input type="checkbox" id="check1" name="taxable">
+                                                    
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </td>
+                                            <td class="add-remove text-end">
+                                                <a href="javascript:void(0);" class="add-btn me-2"><i
+                                                        class="fas fa-plus-circle"></i></a>
+                                                <a href="javascript:void(0);" class="remove-btn"><i
+                                                        class="fe fe-trash-2"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-6">
+                                <div class="invoice-fields">
+                                    <h4 class="field-title">More Fields</h4>
+                                </div>
+                                <div class="invoice-faq">
+                                    <div class="panel-group" id="accordion" role="tablist"
+                                        aria-multiselectable="true">
+                                        <!-- -->
+                                        <div class="faq-tab">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingThree">
+                                                    <p class="panel-title">
+                                                        <a class="collapsed" data-bs-toggle="collapse"
+                                                            data-bs-parent="#accordion"
+                                                            href="#collapseThree" aria-expanded="false"
+                                                            aria-controls="collapseThree">
+                                                            <i class="fas fa-plus-circle me-1"></i> Add
+                                                            Notes
+                                                        </a>
+                                                    </p>
                                                 </div>
-                                            </div>
-                                            <div class="faq-tab">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="headingThree">
-                                                        <p class="panel-title">
-                                                            <a class="collapsed" data-bs-toggle="collapse"
-                                                                data-bs-parent="#accordion"
-                                                                href="#collapseThree" aria-expanded="false"
-                                                                aria-controls="collapseThree">
-                                                                <i class="fas fa-plus-circle me-1"></i> Add
-                                                                Notes
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                    <div id="collapseThree" class="panel-collapse collapse"
-                                                        role="tabpanel" aria-labelledby="headingThree"
-                                                        data-bs-parent="#accordion">
-                                                        <div class="panel-body">
-                                                            <textarea class="form-control"></textarea>
-                                                        </div>
+                                                <div id="collapseThree" class="panel-collapse collapse"
+                                                    role="tabpanel" aria-labelledby="headingThree"
+                                                    data-bs-parent="#accordion">
+                                                    <div class="panel-body">
+                                                        <textarea class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-5 col-md-6">
-                                    <div class="invoice-total-card">
-                                        <h4 class="invoice-total-title">Summary</h4>
-                                        <div class="invoice-total-box">
-                                            <div class="invoice-total-inner">
-                                                <p>Taxable Amount <span>$21</span></p>
-                                                <p>Round Off
-                                                    <input type="checkbox" id="status_1" class="check">
-                                                    <label for="status_1" class="checktoggle">checkbox</label>
-                                                    <span>$54</span>
-                                                </p>
-                                                <div class="links-info-one">
-                                                    <div class="links-info">
-                                                        <div class="links-cont">
-                                                            <a href="#" class="service-trash">
-                                                                <i class="feather-trash-2"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a href="javascript:void(0);" class="add-links">
-                                                    <i class="fas fa-plus-circle me-1"></i> Additional Charges
-                                                </a>
-                                                <div class="links-info-discount">
-                                                    <div class="links-cont-discount">
-                                                        <a href="javascript:void(0);" class="add-links-one">
-                                                            <i class="fas fa-plus-circle me-1"></i> Add more
-                                                            Discount
-                                                        </a>
-                                                        <a href="#" class="service-trash-one">
+                            </div>
+                            <div class="col-lg-5 col-md-6">
+                                <div class="invoice-total-card">
+                                    <h4 class="invoice-total-title">Summary</h4>
+                                    <div class="invoice-total-box">
+                                        <div class="invoice-total-inner">
+                                            <p>Sub total <span id="subtotall">0</span></p>
+                                            <p>Taxable <span id="subtax">0</span></p>
+                                            <!-- <p>Round Off
+                                                <input type="checkbox" id="status_1" class="check">
+                                                <label for="status_1" class="checktoggle">checkbox</label>
+                                                <span>$54</span>
+                                            </p> -->
+                                            <div class="links-info-one">
+                                                <div class="links-info">
+                                                    <div class="links-cont">
+                                                        <a href="#" class="service-trash">
                                                             <i class="feather-trash-2"></i>
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="invoice-total-footer">
-                                                <h4>Total Amount <span>$ 894.00</span></h4>
-                                            </div>
+                                            <!-- additional charge -->
                                         </div>
-                                    </div>
-                                    <div class="upload-sign">
-                                        <div class="form-group service-upload">
-                                            <span>Upload Sign</span>
-                                            <input type="file" multiple>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="Name of the Signatuaory">
-                                        </div>
-                                        <div class="form-group float-end mb-0">
-                                            <button class="btn btn-primary" type="submit">Save Invoice</button>
+                                        <div class="invoice-total-footer">
+                                            <h4>Total Amount: <span id="gtotal">0</span></h4>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="upload-sign">
+                                    <div class="form-group float-end mb-0">
+                                        <button class="btn btn-primary" onclick="generatebill()">Save Invoice</button>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -582,15 +539,15 @@
                     $('#itemprice' + id).val(response.rate)
                     if (response.taxable == true ){
                         $('#check' + id).attr('checked', true)
+                        $('#checkvalue' + id).val("Taxable")
                     } 
                     else {
-                        pass
+                        $('#checkvalue' + id).val("NonTaxable")
                     }
                 }
                 else {
                     alert("Product Does not Exits")
                 }
-                
             }
         })
 
@@ -598,15 +555,76 @@
 
     function qtyChange(id) {
         var total = 0
+        var item_taxTotal = 0
+        var Available_rowCount = $(".add-table-items tr ").length;
         var qty = $("#qty"+id).val()
+        var taxable = $("#checkvalue"+id).val()
+        var tax = $("#check" +id).val()
         var itemprice = $("#itemprice"+id).val()
         var check = $("#check"+id).val()
+        var subtotal = 0
+        var sum = 0
+
         total = qty*itemprice
+        if (taxable == "Taxable"){
+            tax = (total *5)/100
+            item_taxTotal = total + tax
+        }
+        else {
+            item_taxTotal = total
+        }
+        
+        
         $("#itemtotal" +id ).val(total)
+        $("#itemtaxtotal" +id ).val(item_taxTotal)
+        for(var i=1;i<Available_rowCount;i++){
+            subtotal += parseInt($('#itemtotal'+i).val())
+            sum+=parseInt($('#itemtaxtotal'+i).val())
+        }
+        taxamount = sum - subtotal
+        $("#subtotall").html(subtotal)
+        $("#subtax").html(taxamount)
+        $("#gtotal").html(sum)
 
     }
 
+    // invoice generation
 
+    function generatebill() {
+        data = []
+        var totalrowCount = $(".add-table-items tr ").length;
+        alert(totalrowCount)
+        primarydatas = {
+            "customerphone":$("#customerphone").val(),
+            "invoicenumber":$("#invoicenumber").html(),
+            "invoicedate":$("#invoicedate").val(),
+            "subtotall":$("#subtotall").val(),
+            "gtotal":$("#gtotal").html()
+        }
+        data.push(primarydatas)
+        for (var i = 1; i < totalrowCount; i++) {
+            var items = {
+                'itemname': $("#itemname" + i ).val(),
+                'qty': $("#qty" + i).val(),
+                'itemtotal':$("#itemtotal" + i).val(),
+                'itemtaxtotal':$("#itemtaxtotal" + i).val(),
+                'checkvalue':$("#checkvalue" +i).val()
+            }
+            data.push(items)
+        }
+        dt = { 'data': data },
+            dt['data'] = JSON.stringify(dt['data']),
+            
+            $.ajax({
+                url: "saveinvoice/",
+                type: "POST",
+                data: dt,
+                success: function (response) {
+                    // window.location='/official/invticket/'+ response.invid.invId
+                    alert("success")
+                }
+            })
+    }
 
 
 </script>
