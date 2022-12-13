@@ -64,6 +64,9 @@ class Invoice(models.Model):
     def __str__(self):
         return str(self.invoice_number)
 
+    def getdetails(self):
+        return InvoiceItems.objects.filter(invoice=self)
+
 
 class InvoiceItems(models.Model):
     invoice = models.ForeignKey(Invoice,on_delete=models.CASCADE,null=True)
@@ -71,7 +74,7 @@ class InvoiceItems(models.Model):
     quantity = models.IntegerField(default=1)
     total = models.FloatField(default=0)
     tax = models.FloatField(default=0)
-    tax_applied = models.BooleanField(default=True)
+    # tax_applied = models.BooleanField(default=True)
     itemtotal = models.FloatField(default=0)
 
     def __str__(self):

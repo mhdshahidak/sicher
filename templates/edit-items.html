@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Item Info</h4>
+                        <form method="POST" >
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Item Name</label>
+                                        <input type="text" class="form-control" value="{{item.description}}" name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label>Aditional_details   </label>
+                                            <input class="form-control" value="{{item.aditional_details}}" name="aditional_details">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Price Per unit</label>
+                                        <input type="number" class="form-control" value="{{item.rate}}" name="price" >
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <input type="text" value="{{item.is_taxable}}" >
+                                        <label>Taxable </label>
+                                        <label class="custom_check">
+                                            <input type="checkbox" value="{{item.is_taxable}}" name="taxable">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div> -->
+                                </div>
+                                <div class="text-end mt-4">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

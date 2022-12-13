@@ -7395,7 +7395,7 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
 	border-radius: 14px;
 }
 .invoice-item-one {
-	border-bottom: 1px solid rgba(231, 234, 252, 0.75);
+	border-bottom: 0px solid rgba(231, 234, 252, 0.75);
 }
 .invoice-item-one .invoice-info {
 	margin-bottom: 30px;
@@ -7509,7 +7509,7 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
 	margin-top: 18px;
 }
 .invoice-item-bg {
-	background: #7638FF;
+	background: #14489e;
 	border-radius: 10px;
 	margin-top: 30px;
 	margin-bottom: 30px;

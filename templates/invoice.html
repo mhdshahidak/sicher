@@ -4,10 +4,11 @@
 
 <div class="page-wrapper" >
     <div class="content container-fluid">
-
-        <div class="page-header invoices-page-header">
-            <div class="row align-items-center">
-                <div class="col">
+        <!-- page-header invoices-page-header -->
+        <!-- row align-items-center -->
+        <div class="row">
+            <div class="">
+                <div class="col mb-5">
                     <ul class="breadcrumb invoices-breadcrumb">
                         <li class="breadcrumb-item invoices-breadcrumb-item">
                             <a href="invoices.html">
@@ -177,7 +178,7 @@
                                                     role="tabpanel" aria-labelledby="headingThree"
                                                     data-bs-parent="#accordion">
                                                     <div class="panel-body">
-                                                        <textarea class="form-control"></textarea>
+                                                        <textarea class="form-control" id="notes"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -506,6 +507,7 @@
     </div>
 </div>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function chengingName() {
         $.ajax({
@@ -593,13 +595,13 @@
     function generatebill() {
         data = []
         var totalrowCount = $(".add-table-items tr ").length;
-        alert(totalrowCount)
         primarydatas = {
             "customerphone":$("#customerphone").val(),
-            "invoicenumber":$("#invoicenumber").html(),
+            "invoicenumber":$("#invoicenumber").val(),
             "invoicedate":$("#invoicedate").val(),
-            "subtotall":$("#subtotall").val(),
-            "gtotal":$("#gtotal").html()
+            "subtotall":$("#subtotall").html(),
+            "gtotal":$("#gtotal").html(),
+            "note":$("#notes").val()
         }
         data.push(primarydatas)
         for (var i = 1; i < totalrowCount; i++) {
@@ -620,9 +622,17 @@
                 type: "POST",
                 data: dt,
                 success: function (response) {
-                    // window.location='/official/invticket/'+ response.invid.invId
-                    alert("success")
-                }
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: response.msg,
+                        showConfirmButton: false,
+                        timer: 6000
+                    });0
+                    setTimeout(function () {
+                        location.reload();
+                        },1000);
+                    }
             })
     }
 

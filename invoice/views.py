@@ -1,15 +1,20 @@
+import datetime
 import json
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 
-from invoice.models import Client, Invoice, Items, FromDetails
+from invoice.models import Client, Invoice, InvoiceItems, Items, FromDetails
 from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
 
 def home(request):
-    return render(request,'invoice-list.html')
+    invoices = Invoice.objects.all()
+    context = {
+        "invoices" : invoices,
+    }
+    return render(request,'invoice-list.html',context)
 
 def invoice(request):
     if Invoice.objects.exists():
@@ -28,6 +33,16 @@ def invoice(request):
         "items":items,
     }
     return render(request,'invoice.html',context)
+
+
+def bill(request,id):
+    invoice = Invoice.objects.get(id=id)
+    admin_details = FromDetails.objects.all().last()
+    context = {
+        "invoice":invoice,
+        "admin_details":admin_details,
+    }
+    return render(request,'bill.html', context)
 
 
 #invoice ajax
@@ -70,12 +85,49 @@ def productsearch(request):
 
 @csrf_exempt
 def saveinvoice(request):
-    print(request.POST)
     data = json.loads(request.POST['data'])
-    print(data)
+    try :
+        basic_datas = data[0]
+        invoice_number = basic_datas['invoicenumber']
+        customer_phone = basic_datas['customerphone']
+        invoice_date = basic_datas['invoicedate']
+        subtotall = basic_datas['subtotall']
+        gtotal = basic_datas['gtotal']
+        notes = basic_datas['note']
+        # print(invoice_date,"#"*10)
+        if invoice_date == "" :
+            date = datetime.date.today()
+        else :
+            date = invoice_date
+        customer = Client.objects.get(phone=customer_phone)
+        if notes == "" :
+            note = "Notes Does not added"
+        else :
+            note = notes
+        new_invoice = Invoice(invoice_number=invoice_number,client=customer,date=date,item_total=subtotall,grand_total=gtotal,note=note)
+        new_invoice.save()
+
+        for i in data[1:]:
+            item_name = i['itemname']
+            quantity = i['qty']
+            itemtotal = i['itemtotal']
+            itemtaxtotal = i['itemtaxtotal']
+            checkvalue = i['checkvalue']
+            if Items.objects.filter(description=item_name).exists():
+                product = Items.objects.get(description=item_name)
+            else :
+                product = Items(description=item_name)
+                product.save()
+            tax = int(itemtaxtotal) - int(itemtotal)
+            new_invoice_item = InvoiceItems(invoice=new_invoice,item=product,quantity=quantity,total=itemtotal,itemtotal=itemtaxtotal,tax=tax)
+            new_invoice_item.save()
+            msg = "Invoice saved successfully"
+    except :
+        msg = "Somthing went Wrong Please try again"
+        pass
     # data = request.POST['']
     data = {
-        "fdsd":"sdas"
+        "msg": msg,
     }
     return JsonResponse(data)
 
@@ -132,6 +184,64 @@ def items(request):
         "all_items":all_items,
     }
     return render(request,'items.html',context)
+
+def edit_items(request,id):
+    item = Items.objects.get(id=id)
+    if request.method == "POST":
+        name = request.POST['name']
+        price = request.POST['price']
+        aditional_details = request.POST['aditional_details']
+        # try :
+        #     taxable = request.POST['taxable']
+            
+        #     Items.objects.filter(id=id).update(description=name,rate=price,aditional_details=aditional_details)
+        #     return redirect("invoice:items")
+        # except :
+        #     Items.objects.filter(id=id).update(description=name,rate=price,aditional_details=aditional_details,is_taxable=False)
+        #     return redirect("invoice:items")
+        Items.objects.filter(id=id).update(description=name,rate=price,aditional_details=aditional_details)
+        return redirect("invoice:items")
+        
+    context = {
+        "item" : item,
+    }
+    return render(request,'edit-items.html',context)
+
+
+def edit_customer(request,id):
+    customer = Client.objects.get(id=id)
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        city = request.POST['city']
+        state = request.POST['state']
+        address = request.POST['address']
+        zipcode = request.POST['zipcode']
+        Client.objects.filter(id=id).update(name=name,email=email,phone=phone,city=city,country=state,address=address,zipcode=zipcode)
+        return redirect('invoice:clients')
+    context = {
+        "customer" : customer,
+    }
+    return render(request,'edit-customer.html', context)
+
+
+@csrf_exempt
+def delete_item(request):
+    id = request.POST['id']
+    product = Items.objects.get(id=id)
+    product.delete()
+    return JsonResponse({"msg":"ggg"})
+
+
+@csrf_exempt
+def deleteClient(request):
+    id = request.POST['id']
+    client = Client.objects.get(id=id)
+    client.delete()
+    return JsonResponse({"msg":"ggg"})
+
+
 
 def settings(request):
     admin_details = FromDetails.objects.all().last()
