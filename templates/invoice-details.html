@@ -10,20 +10,12 @@
                 <div class="col">
                     <h3 class="page-title">Invoices</h3>
                     <ul class="breadcrumb">
-                        <li class=""><a href="index.html">Dashboard /</a></li>
+                        <li class=""><a href="">Dashboard /</a></li>
                         <li class="breadcrumb-item active">Invoices</li>
                     </ul>
                 </div>
-                <div class="col-auto">
-                    <a href="invoices.html" class="invoices-links active">
-                        <i data-feather="list"></i>
-                    </a>
-                    <a href="invoice-grid.html" class="invoices-links">
-                        <i data-feather="grid"></i>
-                    </a>
-                </div>
 
-                <div class="col-lg-4 col-md-4">
+                <!-- <div class="col-lg-4 col-md-4">
                     <div class="invoices-settings-btn">
                         <a href="invoices-settings.html" class="invoices-settings-icon">
                             <i data-feather="settings"></i>
@@ -32,7 +24,7 @@
                             <i data-feather="plus-circle"></i> New Invoice
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row">
@@ -54,7 +46,7 @@
                                     {% for invoice in invoices %}
                                     <tr>
                                         <td>
-                                            <a href="view-invoice.html" class="invoice-link">{{invoice.invoice_number}}</a>
+                                            <a href="{% url 'invoice:bill' invoice.id %}" class="invoice-link">{{invoice.invoice_number}}</a>
                                         </td>
                                         <td>
                                             <h2 class="table-avatar">
@@ -65,15 +57,34 @@
                                         <td>{{invoice.date}}</td>
                                         <!-- <td><span class="badge bg-success-light">Paid</span></td> -->
                                         <td class="text-center">
-                                            <a href="{% url 'invoice:bill' invoice.id %}"
-                                                class="btn btn-sm btn-white text-primary me-2"><i
-                                                    class="fe fe-eye me-1"></i>View</a>
-                                            <!-- <a href=""
-                                                class="btn btn-sm btn-white text-success me-2"><i
-                                                    class="far fa-edit me-1"></i> Edit</a> -->
-                                            <a onclick="deleteInvoice({{invoice.id}})"
-                                                class="btn btn-sm btn-white text-danger me-2"><i
-                                                    class="far fa-trash-alt me-1"></i>Delete</a>
+                                            <div class="dropdown dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                        class="fas fa-ellipsis-h"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="{% url 'invoice:payment' invoice.id %}"><i
+                                                            class="far fa-edit me-2"></i>Payment</a>
+                                                    <a class="dropdown-item" onclick="deleteInvoice({{invoice.id}})"><i
+                                                            class="far fa-trash-alt me-2"></i>Delete</a>
+                                                    <a class="dropdown-item" href="{% url 'invoice:bill' invoice.id %}"><i
+                                                            class="far fa-eye me-2"></i>View</a>
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-file-alt me-2"></i>Convert to
+                                                        Invoice</a> -->
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-check-circle me-2"></i>Mark as
+                                                        sent</a> -->
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-paper-plane me-2"></i>Send
+                                                        Estimate</a> -->
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-check-circle me-2"></i>Mark as
+                                                        Accepted</a> -->
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-times-circle me-2"></i>Mark as
+                                                        Rejected</a> -->
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     {% endfor %}

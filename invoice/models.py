@@ -56,9 +56,10 @@ class Invoice(models.Model):
     invoice_number = models.CharField(max_length=50,null=True)
     client = models.ForeignKey(Client,on_delete=models.CASCADE,null=True)
     date = models.DateField(null=True)
-    item_total = models.FloatField(default=0,null=True)
-    tax_amount = models.FloatField(default=0,null=True)
-    grand_total = models.FloatField(default=0,null=True)
+    item_total = models.FloatField(default=0)
+    tax_amount = models.FloatField(default=0)
+    grand_total = models.FloatField(default=0)
+    amount_paid = models.FloatField(default=0)
     note = models.CharField(max_length=2000,null=True)
 
     def __str__(self):
@@ -76,6 +77,16 @@ class InvoiceItems(models.Model):
     tax = models.FloatField(default=0)
     # tax_applied = models.BooleanField(default=True)
     itemtotal = models.FloatField(default=0)
+
+    def __str__(self):
+        return str(self.invoice)
+
+
+class BillPayment(models.Model):
+    invoice = models.ForeignKey(Invoice,on_delete=models.CASCADE,null=True)
+    amount = models.FloatField(default=0)
+    date = models.DateField(null=True)
+    balance = models.FloatField(default=0)
 
     def __str__(self):
         return str(self.invoice)

@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 
-from invoice.models import Client, Invoice, InvoiceItems, Items, FromDetails
+from invoice.models import BillPayment, Client, Invoice, InvoiceItems, Items, FromDetails
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -43,6 +43,27 @@ def bill(request,id):
         "admin_details":admin_details,
     }
     return render(request,'bill.html', context)
+
+
+def payment(request,id):
+    invoice = Invoice.objects.get(id=id)
+    balance = invoice.grand_total - invoice.amount_paid
+    history = BillPayment.objects.filter(invoice=invoice)
+    if request.method == "POST":
+        amount = request.POST['amount']
+        to_date = datetime.date.today()
+        balance_after_pay = balance - int(amount)
+        new_pay = BillPayment(invoice=invoice,amount=amount,date=to_date,balance=balance_after_pay)
+        new_pay.save()
+        invoice.amount_paid = invoice.amount_paid + int(amount)
+        invoice.save()
+        return redirect('/payment/'+str(id))
+    context = {
+        "invoice":invoice,
+        "history":history,
+        "balance":balance,
+    }
+    return render(request,'payment-page.html',context)
 
 
 #invoice ajax
@@ -135,7 +156,11 @@ def saveinvoice(request):
 
 
 def estimate_list(request):
-    return render(request,'estimate-list.html')
+    invoices = Invoice.objects.all()
+    context = {
+        "invoices" : invoices,
+    }
+    return render(request,'invoice-details.html',context)
 
 def clients(request):
     clients = Client.objects.all()
@@ -241,6 +266,12 @@ def deleteClient(request):
     client.delete()
     return JsonResponse({"msg":"ggg"})
 
+@csrf_exempt
+def deleteinvoice(request):
+    id = request.POST['id']
+    invoice = Invoice.objects.get(id=id)
+    invoice.delete()
+    return JsonResponse({"msg":"ggg"})
 
 
 def settings(request):

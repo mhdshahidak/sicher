@@ -25,3 +25,5 @@ class InvoiceItemsAdmin(admin.ModelAdmin):
     list_display = ('invoice','item','itemtotal')
     search_fields=('invoice',)
 admin.site.register(InvoiceItems,InvoiceItemsAdmin)
+
+admin.site.register(BillPayment)
