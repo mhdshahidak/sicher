@@ -2,6 +2,11 @@ import datetime
 import json
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout
+
+
 
 from invoice.models import BillPayment, Client, Invoice, InvoiceItems, Items, FromDetails
 from django.views.decorators.csrf import csrf_exempt
@@ -9,6 +14,30 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
+def loginPage(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request,username=username,password=password)
+        if user is not None :
+            auth_login(request,user)
+            return redirect("invoice:home")
+        else :
+            context = {
+                "msg":1,
+            }
+            return render(request,'login.html',context)
+    context = {
+        "msg":0
+    }
+    return render(request,'login.html',context)
+
+def logoutView(request):
+    logout(request)
+    return redirect("invoice:loginpage")
+
+
+@login_required(login_url="/login-page/")
 def home(request):
     invoices = Invoice.objects.all()
     context = {
@@ -16,6 +45,7 @@ def home(request):
     }
     return render(request,'invoice-list.html',context)
 
+@login_required(login_url="/login-page/")
 def invoice(request):
     if Invoice.objects.exists():
         inv = Invoice.objects.last().id
@@ -34,7 +64,7 @@ def invoice(request):
     }
     return render(request,'invoice.html',context)
 
-
+@login_required(login_url="/login-page/")
 def bill(request,id):
     invoice = Invoice.objects.get(id=id)
     admin_details = FromDetails.objects.all().last()
@@ -44,7 +74,7 @@ def bill(request,id):
     }
     return render(request,'bill.html', context)
 
-
+@login_required(login_url="/login-page/")
 def payment(request,id):
     invoice = Invoice.objects.get(id=id)
     balance = invoice.grand_total - invoice.amount_paid
@@ -154,7 +184,7 @@ def saveinvoice(request):
 
 
 
-
+@login_required(login_url="/login-page/")
 def estimate_list(request):
     invoices = Invoice.objects.all()
     context = {
@@ -162,6 +192,7 @@ def estimate_list(request):
     }
     return render(request,'invoice-details.html',context)
 
+@login_required(login_url="/login-page/")
 def clients(request):
     clients = Client.objects.all()
     context = {
@@ -169,6 +200,7 @@ def clients(request):
     }
     return render(request,'client-list.html',context)
 
+@login_required(login_url="/login-page/")
 def addClients(request):
     if request.method == "POST":
         name = request.POST['name']
@@ -187,6 +219,7 @@ def addClients(request):
             return render(request,'add-customer.html')
     return render(request,'add-customer.html')
 
+@login_required(login_url="/login-page/")
 def items(request):
     all_items = Items.objects.filter(is_active = True)
     if request.method == "POST":
@@ -210,6 +243,7 @@ def items(request):
     }
     return render(request,'items.html',context)
 
+@login_required(login_url="/login-page/")
 def edit_items(request,id):
     item = Items.objects.get(id=id)
     if request.method == "POST":
@@ -233,6 +267,7 @@ def edit_items(request,id):
     return render(request,'edit-items.html',context)
 
 
+@login_required(login_url="/login-page/")
 def edit_customer(request,id):
     customer = Client.objects.get(id=id)
     if request.method == "POST":
@@ -274,6 +309,7 @@ def deleteinvoice(request):
     return JsonResponse({"msg":"ggg"})
 
 
+@login_required(login_url="/login-page/")
 def settings(request):
     admin_details = FromDetails.objects.all().last()
     context = {
