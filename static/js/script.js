@@ -456,7 +456,7 @@ Version      : 1.0
 			'</td>' +
 			'<td class="add-remove text-end">' +
 				'<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
-				'<a href="javascript:void(0);" class="remove-btn"><i class="fe fe-trash-2"></i></a>' +
+				'<a href="javascript:void(0);" class="remove-btn" onclick="DeleteRow('+ rowCount +')" ><i class="fe fe-trash-2"></i></a>' +
 			'</td>' +
 		'</tr>';
 		

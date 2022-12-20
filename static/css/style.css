@@ -4015,9 +4015,9 @@ table.table-inbox tbody tr.checked {
 	21. Invoices
 -----------------------*/
 
-.invoice-item .invoice-logo {
+/* .invoice-item .invoice-logo {
     margin-bottom: 30px;
-}
+} */
 .invoice-item .invoice-logo img {
     width: auto;
     max-height: 52px;
@@ -4045,9 +4045,15 @@ table.table-inbox tbody tr.checked {
 .invoice-item .invoice-text h2 {
 	font-weight:400
 }
-.invoice-info {
-	margin-bottom: 20px;
+.invoicehead {
+	font-weight: 700;
+	color: white;
+    text-align: center;
+    padding: 0px 0px 0px 26px;
 }
+/* .invoice-info {
+	margin-bottom: 20px;
+} */
 .invoice-info p {
 	margin-bottom: 0;
 }
@@ -7398,7 +7404,7 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
 	border-bottom: 0px solid rgba(231, 234, 252, 0.75);
 }
 .invoice-item-one .invoice-info {
-	margin-bottom: 30px;
+	/* margin-bottom: 30px; */
 	text-align: right;
 }
 .customer-text-one {
@@ -7425,9 +7431,9 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
 	text-transform: uppercase;
 	margin-bottom: 0;
 }
-.invoice-head {
+/* .invoice-head {
 	margin-bottom: 30px;
-}
+} */
 .invoice-head p {
 	font-weight: 400;
 	font-size: 20px;
