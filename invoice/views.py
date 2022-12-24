@@ -8,6 +8,7 @@ from django.contrib.auth import logout
 
 
 
+
 from invoice.models import BillPayment, Client, Invoice, InvoiceItems, Items, FromDetails
 from django.views.decorators.csrf import csrf_exempt
 
@@ -78,6 +79,14 @@ def bill(request,id):
 def payment(request,id):
     invoice = Invoice.objects.get(id=id)
     balance = invoice.grand_total - invoice.amount_paid
+    if invoice.grand_total <= invoice.amount_paid :
+        invoice.status = "Paid"
+        invoice.save()
+    elif balance <= 0 :
+        invoice.status = "Paid"
+        invoice.save()
+    else :
+        pass
     history = BillPayment.objects.filter(invoice=invoice)
     if request.method == "POST":
         amount = request.POST['amount']
@@ -155,7 +164,7 @@ def saveinvoice(request):
             note = "Notes Does not added"
         else :
             note = notes
-        new_invoice = Invoice(invoice_number=invoice_number,client=customer,date=date,item_total=subtotall,grand_total=gtotal,note=note)
+        new_invoice = Invoice(invoice_number=invoice_number,client=customer,date=date,item_total=subtotall,grand_total=gtotal,note=note,status="Due")
         new_invoice.save()
 
         for i in data[1:]:

@@ -47,6 +47,7 @@
                                         <th>Client</th>
                                         <th>Amount</th>
                                         <th>Date</th>
+                                        <th>Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -63,7 +64,11 @@
                                         </td>
                                         <td class="text-primary">{{invoice.grand_total}}</td>
                                         <td>{{invoice.date}}</td>
-                                        <!-- <td><span class="badge bg-success-light">Paid</span></td> -->
+                                        {% if invoice.status == "Paid" %}
+                                        <td><span class="badge bg-success-light">{{invoice.status}}</span></td>
+                                        {% else %}
+                                        <td><span class="badge bg-danger-light">{{invoice.status}}</span></td>
+                                        {% endif %}
                                         <td class="text-center">
                                             <a href="{% url 'invoice:bill' invoice.id %}"
                                                 class="btn btn-sm btn-white text-primary me-2"><i

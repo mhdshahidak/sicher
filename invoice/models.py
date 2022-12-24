@@ -53,6 +53,7 @@ class Items(models.Model):
 
 
 class Invoice(models.Model):
+    invoice_choices = (('Due','Due'),('Paid','Paid'))
     invoice_number = models.CharField(max_length=50,null=True)
     client = models.ForeignKey(Client,on_delete=models.CASCADE,null=True)
     date = models.DateField(null=True)
@@ -60,6 +61,7 @@ class Invoice(models.Model):
     tax_amount = models.FloatField(default=0)
     grand_total = models.FloatField(default=0)
     amount_paid = models.FloatField(default=0)
+    status = models.CharField(max_length=10,choices=invoice_choices,null=True)
     note = models.CharField(max_length=2000,null=True)
 
     def __str__(self):
