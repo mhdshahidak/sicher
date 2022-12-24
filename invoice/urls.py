@@ -20,6 +20,8 @@ urlpatterns = [
     #payment
     path('payment/<int:id>',views.payment, name="payment"),
 
+    path('msgsending/<int:id>',views.msgsending,name="msgsending"),
+
     path('settings',views.settings, name='settings'),
 
     #ajax

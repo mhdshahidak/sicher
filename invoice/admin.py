@@ -4,10 +4,10 @@ from . models import *
 # Register your models here.
 admin.site.register(FromDetails)
 
-class ClientAdmin(admin.ModelAdmin):
+class ClientDetailsAdmin(admin.ModelAdmin):
     list_display = ('name','email','phone')
     search_fields=('phone',)
-admin.site.register(Client,ClientAdmin)
+admin.site.register(ClientDetails,ClientDetailsAdmin)
 
 
 class ItemsAdmin(admin.ModelAdmin):

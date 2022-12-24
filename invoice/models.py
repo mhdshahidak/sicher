@@ -20,7 +20,7 @@ class FromDetails(models.Model):
         return str(self.phone)
 
 
-class Client(models.Model):
+class ClientDetails(models.Model):
     name = models.CharField(max_length=200,null=True)
     email = models.CharField(max_length=200,null=True)
     address = models.CharField(max_length=500,null=True)
@@ -30,7 +30,7 @@ class Client(models.Model):
     phone = models.CharField(max_length=20,unique=True,null=True)
 
     class Meta:
-        verbose_name_plural = ("Client")
+        verbose_name_plural = ("Clientdetail")
 
     def __str__(self):
         return str(self.name)
@@ -55,7 +55,7 @@ class Items(models.Model):
 class Invoice(models.Model):
     invoice_choices = (('Due','Due'),('Paid','Paid'))
     invoice_number = models.CharField(max_length=50,null=True)
-    client = models.ForeignKey(Client,on_delete=models.CASCADE,null=True)
+    client = models.ForeignKey(ClientDetails,on_delete=models.CASCADE,null=True)
     date = models.DateField(null=True)
     item_total = models.FloatField(default=0)
     tax_amount = models.FloatField(default=0)

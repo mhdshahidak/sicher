@@ -269,6 +269,10 @@
                         <a onclick="printDiv()" id="Printbutton" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Print Your Invoice</a>
                     </div>
                 </div>
+                <div class="col-lg-12 mb-5">
+                    <a href="{% url 'invoice:msgsending' invoice.id  %}" onclick="" id="Printbutton" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Sent Sms</a>
+                </div>
+
             </div>
     <!-- </div> -->
 </body>

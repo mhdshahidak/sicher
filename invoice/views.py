@@ -5,11 +5,12 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout
+from . import sms
+from twilio.rest import Client
 
 
 
-
-from invoice.models import BillPayment, Client, Invoice, InvoiceItems, Items, FromDetails
+from invoice.models import BillPayment, ClientDetails, Invoice, InvoiceItems, Items, FromDetails
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -54,7 +55,7 @@ def invoice(request):
     else:
         inv=0
         inv_id = 'INVSCR'+str(100000+inv)
-    customers = Client.objects.all()
+    customers = ClientDetails.objects.all()
     admin_details = FromDetails.objects.all().last()
     items = Items.objects.all()
     context = {
@@ -105,14 +106,26 @@ def payment(request,id):
     return render(request,'payment-page.html',context)
 
 
+
+def msgsending(request,id):
+    client = Client(sms.TWILIO_ACCOUNT_SID, sms.TWILIO_AUTH_TOKEN)
+
+    message = client.messages.create(
+            messaging_service_sid='MG859803b3a99454fddcd325a8546356a0', 
+            body=f'Your otp for verification is ',   
+            to='+917510661741'
+        )
+    return redirect('/bill/'+str(id))
+
+
 #invoice ajax
 @csrf_exempt
 def customersearch(request):
     phone = request.POST['customerphone']
-    if Client.objects.filter(phone=phone).exists():
-        client = Client.objects.get(phone=phone)
+    if ClientDetails.objects.filter(phone=phone).exists():
+        client = ClientDetails.objects.get(phone=phone)
     else :
-        client = Client(phone=phone)
+        client = ClientDetails(phone=phone)
         client.save()
     data = {
         "name":client.name,
@@ -159,7 +172,7 @@ def saveinvoice(request):
             date = datetime.date.today()
         else :
             date = invoice_date
-        customer = Client.objects.get(phone=customer_phone)
+        customer = ClientDetails.objects.get(phone=customer_phone)
         if notes == "" :
             note = "Notes Does not added"
         else :
@@ -203,7 +216,7 @@ def estimate_list(request):
 
 @login_required(login_url="/login-page/")
 def clients(request):
-    clients = Client.objects.all()
+    clients = ClientDetails.objects.all()
     context = {
         "clients":clients,
     }
@@ -220,8 +233,8 @@ def addClients(request):
         address = request.POST['address']
         zipcode = request.POST['zipcode']
         # name = request.POST['name']
-        if not Client.objects.filter(phone=phone).exists():
-            new_client = Client(name=name,email=email,phone=phone,city=city,country=state,address=address,zipcode=zipcode)
+        if not ClientDetails.objects.filter(phone=phone).exists():
+            new_client = ClientDetails(name=name,email=email,phone=phone,city=city,country=state,address=address,zipcode=zipcode)
             new_client.save()
             return redirect('invoice:clients')
         else :
@@ -278,7 +291,7 @@ def edit_items(request,id):
 
 @login_required(login_url="/login-page/")
 def edit_customer(request,id):
-    customer = Client.objects.get(id=id)
+    customer = ClientDetails.objects.get(id=id)
     if request.method == "POST":
         name = request.POST['name']
         email = request.POST['email']
@@ -287,7 +300,7 @@ def edit_customer(request,id):
         state = request.POST['state']
         address = request.POST['address']
         zipcode = request.POST['zipcode']
-        Client.objects.filter(id=id).update(name=name,email=email,phone=phone,city=city,country=state,address=address,zipcode=zipcode)
+        ClientDetails.objects.filter(id=id).update(name=name,email=email,phone=phone,city=city,country=state,address=address,zipcode=zipcode)
         return redirect('invoice:clients')
     context = {
         "customer" : customer,
@@ -306,7 +319,7 @@ def delete_item(request):
 @csrf_exempt
 def deleteClient(request):
     id = request.POST['id']
-    client = Client.objects.get(id=id)
+    client = ClientDetails.objects.get(id=id)
     client.delete()
     return JsonResponse({"msg":"ggg"})
 
