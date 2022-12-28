@@ -60,17 +60,25 @@
     </style>
     <style>
         .desihn{
+            width: 198px;
             border: 1px #1ab04b solid;
-            height: 15px;
+            height: 12px;
             background: #1ab04b;
         }
         .design2{
             border: 1px #1ab04b solid;
             height: 35px;
             background: #1ab04b;
-            border-top-right-radius: 76em 5em;
-            border-bottom-right-radius: 63em 34em;
-            border-bottom-left-radius: 374em 205em;
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 9px;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 13px;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 22% 100%);
+            /* border-top-right-radius: 76em 5em; */
+            /* border-bottom-right-radius: 63em 34em; */
+            /* border-bottom-left-radius: 374em 205em; */
+            /* transform: skew(40deg); */
+            
         }
         .invoice-head p {
             font-size: 15px;
@@ -81,7 +89,7 @@
 <body>
     
     <!-- <div class="main-wrapper"> -->
-            <div class="content container-fluid" id="invoice-print">
+            <div class="content container-fluid"  id="invoice-print">
                 <div class="row">
                     <div class="invoices-preview">
                         <div class="row justify-content-center">
@@ -93,7 +101,7 @@
                                                 <div class="col-md-8 col-lg-8 col-sm-8 detail">
                                                     <div class="invoice-logo d-flex">
                                                         <img src="{% static 'img/sm1.svg' %}" style="margin-top: 15px;" alt="logo">
-                                                        <ul>
+                                                        <ul style="padding-left: 0.5rem;">
                                                             <li><p>sicher mayor</p></li>
                                                             <li><p>1st floor, bp angagdi, mehque</p></li>
                                                             <li><p>Tirur, Malappuram</p></li>
@@ -116,13 +124,13 @@
 
                                         <div class="row p-0 m-0">
                                             <hr style="height: 5px;color:#1ab04b;">
-                                            <div class="col-lg-2 col-sm-2 col-md-2 p-0">
+                                            <div class="col-lg-3 col-sm-3 col-md-3 p-0">
                                                 <div class="desihn">
                                                     <p></p>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-8 col-md-8 col-sm-8"></div>
-                                            <div class="col-lg-2 col-md-2 col-sm-2 p-0">
+                                            <div class="col-lg-6 col-md-6 col-sm-6"></div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 p-0">
                                                 <div class="design2">
                                                     <h4 class="invoicehead" style="color: white;" >INVOICE</h4>
                                                 </div>
@@ -252,7 +260,7 @@
                                                 <div class="col-lg-3 col-md-3 col-sm-3">
                                                     <div class="invoice-sign text-end pb-3">
                                                         <img class="img-fluid d-inline-block"
-                                                            src="{% static 'img/smSign.jpg' %}" alt="sign">
+                                                            src="{% static 'img/SmSign1.png' %}" alt="sign">
                                                     </div>
                                                     <p>  Authorised Signatory</p>
                                                 </div>
@@ -264,7 +272,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row text-end mb-4">
+                <div class="row text-end ">
                     <div class="col-4">
                         <a href="{% url 'invoice:msgsending' invoice.id  %}" onclick="" id="Printbutton" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Sent Sms</a>
                     </div>

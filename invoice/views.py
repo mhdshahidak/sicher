@@ -108,12 +108,14 @@ def payment(request,id):
 
 
 def msgsending(request,id):
+    invoice = Invoice.objects.get(id=id)
+    phone_number = invoice.client.phone
     client = Client(sms.TWILIO_ACCOUNT_SID, sms.TWILIO_AUTH_TOKEN)
 
     message = client.messages.create(
-            messaging_service_sid='MG859803b3a99454fddcd325a8546356a0', 
-            body=f'Pay your Bill here https://rzp.io/l/ruYYyLXsJ3 ',   
-            to='+917510661741'
+            messaging_service_sid='MG9b0df3d61fa62bf2f3bbd156e0994a68', 
+            body=f'Pay your Bill here https://rzp.io/l/ruYYyLXsJ3 ', 
+            to= '+91' + phone_number
         )
     return redirect('/bill/'+str(id))
 
@@ -167,6 +169,7 @@ def saveinvoice(request):
         subtotall = basic_datas['subtotall']
         gtotal = basic_datas['gtotal']
         notes = basic_datas['note']
+        tax = basic_datas['tax']
         # print(invoice_date,"#"*10)
         if invoice_date == "" :
             date = datetime.date.today()
@@ -177,7 +180,7 @@ def saveinvoice(request):
             note = "Notes Does not added"
         else :
             note = notes
-        new_invoice = Invoice(invoice_number=invoice_number,client=customer,date=date,item_total=subtotall,grand_total=gtotal,note=note,status="Due")
+        new_invoice = Invoice(invoice_number=invoice_number,client=customer,tax_amount=tax,date=date,item_total=subtotall,grand_total=gtotal,note=note,status="Due")
         new_invoice.save()
 
         for i in data[1:]:
