@@ -38,43 +38,27 @@
                     </div>
                     <div class="card-body">
 
-                        <form>
-                            <!-- <div class="row form-group">
-                                <label for="name" class="col-sm-3 col-form-label input-label">Name</label>
-                                <div class="col-sm-9">
-                                    <div class="d-flex align-items-center">
-                                        <label class="avatar avatar-xxl profile-cover-avatar m-0"
-                                            for="edit_img">
-                                            <img id="avatarImg" class="avatar-img"
-                                                src="{% static 'img/profiles/avatar-02.jpg' %}" alt="Profile Image">
-                                            <input type="file" id="edit_img">
-                                            <span class="avatar-edit">
-                                                <i data-feather="edit-2"
-                                                    class="avatar-uploader-icon shadow-soft"></i>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div> -->
+                        <form method="POST">
+                            {% csrf_token %}
                             <div class="row form-group">
                                 <label for="name" class="col-sm-3 col-form-label input-label">Name</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" 
-                                        value="{{admin_details.name}}">
+                                        value="{{admin_details.name}}" name="name">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <label for="email" class="col-sm-3 col-form-label input-label">Email</label>
                                 <div class="col-sm-9">
                                     <input type="email" class="form-control" 
-                                        value="{{admin_details.email}}">
+                                        value="{{admin_details.email}}" name="email">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <label for="phone" class="col-sm-3 col-form-label input-label">Phone <span
                                         class="text-muted">(Optional)</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{admin_details.phone}}">
+                                    <input type="text" class="form-control" value="{{admin_details.phone}}" name="phone">
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -82,21 +66,21 @@
                                     class="col-sm-3 col-form-label input-label">Location</label>
                                 <div class="col-sm-9">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" value="{{admin_details.address}}">
+                                        <input type="text" class="form-control" value="{{admin_details.address}}" name="address">
                                     </div>
                                     <div class="mb-3">
                                         <input type="text" class="form-control" 
-                                            value="{{admin_details.district}}">
+                                            value="{{admin_details.district}}" name="district">
                                     </div>
                                     <input type="text" class="form-control"
-                                        value="{{admin_details.state}}">
+                                        value="{{admin_details.state}}" name="state">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <label for="zipcode" class="col-sm-3 col-form-label input-label">Zip
                                     code</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{admin_details.state}}">
+                                    <input type="text" class="form-control" value="{{admin_details.pincode}}" name="pincode">
                                 </div>
                             </div>
                             <div class="text-end">

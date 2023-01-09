@@ -200,12 +200,12 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Sl No</th>
-                                                                    <th>Description</th>
-                                                                    <th>Rate/Item</th>
-                                                                    <th>Quantity</th>
-                                                                    <th>Total</th>
-                                                                    <th>tax</th>
-                                                                    <th class="text-end">Item Total</th>
+                                                                    <th>Particulars</th>
+                                                                    <!-- <th>Rate/Item</th>
+                                                                    <th>Quantity</th> -->
+                                                                    <th>Amount</th>
+                                                                    <th>Tax</th>
+                                                                    <th class="text-end">Total</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -213,8 +213,8 @@
                                                                 <tr>
                                                                     <td>{{forloop.counter}}</td>
                                                                     <td>{{datas.item.description}}</td>
-                                                                    <td>{{datas.item.rate}}</td>
-                                                                    <th>{{datas.quantity}}</th>
+                                                                    <!-- <td>{{datas.item.rate}}</td>
+                                                                    <th>{{datas.quantity}}</th> -->
                                                                     <td>{{datas.total}}</td>
                                                                     <th>{{datas.tax}}</th>
                                                                     <td class="text-end">{{datas.itemtotal}}</td>

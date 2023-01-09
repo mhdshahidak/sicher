@@ -337,6 +337,17 @@ def deleteinvoice(request):
 @login_required(login_url="/login-page/")
 def settings(request):
     admin_details = FromDetails.objects.all().last()
+    if request.method == "POST":
+        name = request.POST['name']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        # website = request.POST['website']
+        address = request.POST['address']
+        district = request.POST['district']
+        state = request.POST['state']
+        pincode = request.POST['pincode']
+        FromDetails.objects.filter(id=admin_details.id).update(name=name,phone=phone,email=email,address=address,district=district,state=state,pincode=pincode)
+        return redirect('invoice:settings')
     context = {
         "admin_details":admin_details,
     }
