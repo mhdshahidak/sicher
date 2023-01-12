@@ -38,7 +38,7 @@ class ClientDetails(models.Model):
 
 class Items(models.Model):
     description = models.CharField(max_length=50,null=True)
-    rate = models.FloatField(default=0,null=True)
+    # rate = models.FloatField(default=0,null=True)
     aditional_details = models.CharField(max_length=500,null=True)
     is_taxable = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
@@ -74,7 +74,6 @@ class Invoice(models.Model):
 class InvoiceItems(models.Model):
     invoice = models.ForeignKey(Invoice,on_delete=models.CASCADE,null=True)
     item = models.ForeignKey(Items,on_delete=models.CASCADE,null=True)
-    quantity = models.IntegerField(default=1)
     total = models.FloatField(default=0)
     tax = models.FloatField(default=0)
     # tax_applied = models.BooleanField(default=True)

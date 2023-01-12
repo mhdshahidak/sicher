@@ -45,7 +45,6 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Name</th>
-                                        <th>Pricing</th>
                                         <th>Description</th>
                                         <th class="text-end">Action</th>
                                     </tr>
@@ -56,7 +55,6 @@
                                         <td>
                                            {{items.description}}
                                         </td>
-                                        <td class="text-text">{{items.rate}}</td>
                                         <td class="items-text">{{items.aditional_details}}</td>
                                         <td class="text-end">
                                             <a href="{% url 'invoice:edit_items' items.id %}"
@@ -97,12 +95,12 @@
                                     <input type="text" class="form-control" required placeholder="Add New Item" name="name">
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6">
+                            <!-- <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>Price Per unit</label>
                                     <input type="number" class="form-control" required placeholder="₹" name="price" >
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>Aditional_details   </label>

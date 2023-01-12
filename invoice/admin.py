@@ -11,7 +11,7 @@ admin.site.register(ClientDetails,ClientDetailsAdmin)
 
 
 class ItemsAdmin(admin.ModelAdmin):
-    list_display = ('description','rate')
+    list_display = ('description',)
     search_fields=('description',)
 admin.site.register(Items,ItemsAdmin)
 

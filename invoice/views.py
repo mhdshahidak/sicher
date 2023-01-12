@@ -148,7 +148,6 @@ def productsearch(request):
         data = {
             "productexists":"itemexits",
             "itemname":item.description,
-            "rate":item.rate,
             "taxable":item.is_taxable,
         }
         return JsonResponse(data)
@@ -161,6 +160,7 @@ def productsearch(request):
 @csrf_exempt
 def saveinvoice(request):
     data = json.loads(request.POST['data'])
+    print(data)
     try :
         basic_datas = data[0]
         invoice_number = basic_datas['invoicenumber']
@@ -185,17 +185,16 @@ def saveinvoice(request):
 
         for i in data[1:]:
             item_name = i['itemname']
-            quantity = i['qty']
+            item_price = i['itemprice']
             itemtotal = i['itemtotal']
             itemtaxtotal = i['itemtaxtotal']
-            checkvalue = i['checkvalue']
             if Items.objects.filter(description=item_name).exists():
                 product = Items.objects.get(description=item_name)
             else :
                 product = Items(description=item_name)
                 product.save()
-            tax = int(itemtaxtotal) - int(itemtotal)
-            new_invoice_item = InvoiceItems(invoice=new_invoice,item=product,quantity=quantity,total=itemtotal,itemtotal=itemtaxtotal,tax=tax)
+            # tax = int(itemtaxtotal) - int(itemtotal)
+            new_invoice_item = InvoiceItems(invoice=new_invoice,item=product,total=item_price,itemtotal=itemtaxtotal,tax=itemtotal)
             new_invoice_item.save()
             msg = "Invoice saved successfully"
     except :
@@ -249,16 +248,16 @@ def items(request):
     all_items = Items.objects.filter(is_active = True)
     if request.method == "POST":
         name = request.POST['name']
-        price = request.POST['price']
+        # price = request.POST['price']
         aditional_details = request.POST['aditional_details']
         if not Items.objects.filter(description=name).exists():
             try :
                 taxable = request.POST['taxable']
-                new_item = Items(description=name,rate=price,aditional_details=aditional_details)
+                new_item = Items(description=name,aditional_details=aditional_details)
                 new_item.save()
                 return redirect("invoice:items")
             except :
-                new_item = Items(description=name,rate=price,aditional_details=aditional_details,is_taxable=False)
+                new_item = Items(description=name,aditional_details=aditional_details,is_taxable=False)
                 new_item.save()
                 return redirect("invoice:items")
         else:
@@ -273,7 +272,7 @@ def edit_items(request,id):
     item = Items.objects.get(id=id)
     if request.method == "POST":
         name = request.POST['name']
-        price = request.POST['price']
+        # price = request.POST['price']
         aditional_details = request.POST['aditional_details']
         # try :
         #     taxable = request.POST['taxable']
@@ -283,7 +282,7 @@ def edit_items(request,id):
         # except :
         #     Items.objects.filter(id=id).update(description=name,rate=price,aditional_details=aditional_details,is_taxable=False)
         #     return redirect("invoice:items")
-        Items.objects.filter(id=id).update(description=name,rate=price,aditional_details=aditional_details)
+        Items.objects.filter(id=id).update(description=name,aditional_details=aditional_details)
         return redirect("invoice:items")
         
     context = {

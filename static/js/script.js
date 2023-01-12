@@ -435,24 +435,18 @@ Version      : 1.0
 				'{% endfor %}' +
 				'</datalist>' +
 			'</td>' +
+			// '<td>' +
+			// 	'<input type="number" id="qty'+ rowCount +'" onchange="qtyChange('+ rowCount +')" class="form-control">' +
+			// '</td>' +
 			'<td>' +
-				'<input type="number" id="qty'+ rowCount +'" onchange="qtyChange('+ rowCount +')" class="form-control">' +
-			'</td>' +
-			'<td>' +
-				'<input type="number" readonly id="itemprice'+ rowCount +'" class="form-control">' +
+				'<input type="number" id="itemprice'+ rowCount +'" onchange="qtyChange('+ rowCount +')" class="form-control">' +
 			'</td>' +
 			'<td>' +
 				'<input type="number" readonly id="itemtotal'+ rowCount +'" class="form-control">' +
 			'</td>' +
 			'<td>' +
 				'<input type="number" readonly id="itemtaxtotal'+ rowCount +'" class="form-control">' +
-			'</td>' +
-			'<td>' +
-			'<input type="text" id="checkvalue' + rowCount + '" hidden>' +
-			'<label class="custom_check">' +
-			'<input type="checkbox" id="check' + rowCount + '" name="taxable">' +
-			'<span class="checkmark"></span>' +
-			'</label>' +
+				'<input type="text"  hidden id="checkvalue'+ rowCount +'">' +
 			'</td>' +
 			'<td class="add-remove text-end">' +
 				'<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +

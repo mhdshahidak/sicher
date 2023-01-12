@@ -102,11 +102,11 @@
                                     <thead>
                                         <tr><th>sl no</th>
                                             <th>Items</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
+                                            <!-- <th>Quantity</th> -->
                                             <th>Amount</th>
-                                            <th>Item Total</th>
                                             <th>Tax</th>
+                                            <th>Total</th>
+                                            <!-- <th>Tax</th> -->
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -121,11 +121,11 @@
                                                     {% endfor %}
                                                 </datalist> 
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 <input type="number" id="qty1" onchange="qtyChange(1)" class="form-control">
-                                            </td>
+                                            </td> -->
                                             <td>
-                                                <input type="number" readonly id="itemprice1" class="form-control">
+                                                <input type="number" onchange="qtyChange(1)" id="itemprice1" class="form-control">
                                             </td>
                                             <td>
                                                 <input type="number" readonly    id="itemtotal1" class="form-control">
@@ -133,14 +133,15 @@
                                             <td>
                                                 <input type="number" readonly id="itemtaxtotal1" class="form-control">
                                             </td>
-                                            <td>
-                                                <input type="text" id="checkvalue1" hidden>
+                                            <input type="text" id="checkvalue1" hidden>
+                                            <!-- <td>
+                                                
                                                 <label class="custom_check">
                                                     <input type="checkbox" id="check1" name="taxable">
                                                     
                                                     <span class="checkmark"></span>
                                                 </label>
-                                            </td>
+                                            </td> -->
                                             <td class="add-remove text-end">
                                                 <a href="javascript:void(0);" class="add-btn me-2"><i
                                                         class="fas fa-plus-circle"></i></a>
@@ -367,9 +368,9 @@
                 if (response.productexists == "itemexits") {
                     $('#itemprice' + id).val(response.rate)
                     if (response.taxable == true ){
-                        $('#check' + id).attr('checked', true)
+                        // $('#check' + id).attr('checked', true)
                         $('#checkvalue' + id).val("Taxable")
-                    } 
+                    }
                     else {
                         $('#checkvalue' + id).val("NonTaxable")
                     }
@@ -379,35 +380,33 @@
                 }
             }
         })
-
     }
 
     function qtyChange(id) {
+        
         var total = 0
         var item_taxTotal = 0
         var Available_rowCount = $(".add-table-items tr ").length;
-        var qty = $("#qty"+id).val()
+        // var qty = $("#qty"+id).val()
         var taxable = $("#checkvalue"+id).val()
         var tax = $("#check" +id).val()
         var itemprice = $("#itemprice"+id).val()
-        var check = $("#check"+id).val()
+        // var check = $("#check"+id).val()
         var subtotal = 0
         var sum = 0
-
-        total = qty*itemprice
+        total = parseInt(itemprice)
         if (taxable == "Taxable"){
-            tax = (total *5)/100
+            tax = (total *18)/100
             item_taxTotal = total + tax
         }
         else {
+            tax = 0
             item_taxTotal = total
         }
-        
-        
-        $("#itemtotal" +id ).val(total)
+        $("#itemtotal" +id ).val(tax)
         $("#itemtaxtotal" +id ).val(item_taxTotal)
         for(var i=1;i<Available_rowCount;i++){
-            subtotal += parseInt($('#itemtotal'+i).val())
+            subtotal += parseInt($("#itemprice"+i).val())
             sum+=parseInt($('#itemtaxtotal'+i).val())
         }
         taxamount = sum - subtotal
@@ -420,18 +419,18 @@
     // delete row 
 
     function DeleteRow(id){
-        var completeTotal =0
+        var completeTotal = 0
         var tax_onlyamount = 0
-        var amount=parseInt($("#itemtaxtotal" + id).val())  
-        var tax = parseInt($("#itemtotal" + id).val())  
-        var total=$("#subtotall" ).html()
+        var amount = parseInt($("#itemprice" + id).val())
+        var tax = parseInt($("#itemtotal" + id).val())
+        var total = $("#subtotall" ).html()
         var subtax = $("#subtax").html()
         var gtotal = $("#gtotal").html()
 
-        tax_onlyamount = amount - tax
-        sub_total = parseInt(total) - tax
-        sub_tax = parseInt(subtax) - tax_onlyamount
-        completeTotal = parseInt(gtotal) - amount
+        var amount_tax = amount + tax
+        sub_total = parseInt(total) - amount
+        sub_tax = parseInt(subtax) - tax
+        completeTotal = parseInt(gtotal) - amount_tax
 
         $("#subtotall").html(sub_total)
         $("#subtax").html(sub_tax)
@@ -457,10 +456,10 @@
         for (var i = 1; i < totalrowCount; i++) {
             var items = {
                 'itemname': $("#itemname" + i ).val(),
-                'qty': $("#qty" + i).val(),
+                'itemprice':$("#itemprice" +i).val(),
                 'itemtotal':$("#itemtotal" + i).val(),
                 'itemtaxtotal':$("#itemtaxtotal" + i).val(),
-                'checkvalue':$("#checkvalue" +i).val()
+                // 'checkvalue':$("#checkvalue" +i).val()
             }
             data.push(items)
         }
